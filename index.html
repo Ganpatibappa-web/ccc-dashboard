@@ -1,1 +1,148 @@
+<!DOCTYPE html>
+<html lang="en">
 
+<head>
+
+<meta charset="UTF-8">
+<meta name="viewport"
+content="width=device-width, initial-scale=1.0">
+
+<title>CCC Dashboard</title>
+
+<link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+
+<header>
+
+    <div class="container">
+
+        <h1 id="title">
+            CCC Wise Recovery Dashboard
+        </h1>
+
+        <p id="version"></p>
+
+    </div>
+
+</header>
+
+
+
+<div class="container">
+
+    <!-- Input Section -->
+
+    <div class="top-panel">
+
+        <input
+            type="text"
+            id="sheetUrl"
+            placeholder="Paste Google Sheet Link Here">
+
+        <button
+            id="generateBtn">
+
+            Generate Report
+
+        </button>
+
+        <button
+            id="excelBtn">
+
+            Download Excel
+
+        </button>
+
+        <button
+            id="printBtn">
+
+            Print
+
+        </button>
+
+    </div>
+
+
+
+    <!-- Search -->
+
+    <div class="search-box">
+
+        <input
+            type="text"
+            id="search"
+            placeholder="Search CCC Name...">
+
+    </div>
+
+
+
+    <!-- Summary Cards -->
+
+    <div
+        id="summaryCards"
+        class="cards">
+
+    </div>
+
+
+
+    <!-- Loading -->
+
+    <div
+        id="loader"
+        class="loader">
+
+        Loading...
+
+    </div>
+
+
+
+    <!-- Report Table -->
+
+    <div
+        id="reportContainer">
+
+    </div>
+
+</div>
+
+
+
+<!-- Popup -->
+
+<div
+id="popup"
+class="popup">
+
+    <div class="popup-content">
+
+        <span
+            id="closePopup">
+
+            &times;
+
+        </span>
+
+        <div
+            id="popupBody">
+
+        </div>
+
+    </div>
+
+</div>
+
+
+
+<script src="config.js"></script>
+
+<script src="script.js"></script>
+
+</body>
+
+</html>
