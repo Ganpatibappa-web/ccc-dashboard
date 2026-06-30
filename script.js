@@ -1,77 +1,56 @@
-//========================================
-// CCC Dashboard v3.0
-//========================================
+/* ==========================================
+   CCC Recovery Dashboard v3.0
+========================================== */
 
-// Global Variables
-
-let reportRows = [];
-let reportHeader = [];
-let dashboard = {};
+let reportData = [];
+let header = [];
+let cccData = {};
 
 
-//========================================
-// Page Load
-//========================================
+//=============================
+// Generate Button
+//=============================
 
-window.onload = function () {
-
-    document.title = APP_TITLE;
-
-    document.getElementById("title").innerHTML = APP_TITLE;
-
-    document.getElementById("version").innerHTML =
-        "Version " + APP_VERSION;
+document.addEventListener("DOMContentLoaded", function () {
 
     document
         .getElementById("generateBtn")
-        .addEventListener("click", loadReport);
+        .addEventListener("click", loadData);
+
+    document
+        .getElementById("excelBtn")
+        .addEventListener("click", exportTableToExcel);
 
     document
         .getElementById("search")
         .addEventListener("keyup", filterTable);
 
-    document
-        .getElementById("printBtn")
-        .addEventListener("click", function () {
-
-            window.print();
-
-        });
-
-    document
-        .getElementById("excelBtn")
-        .addEventListener("click", exportExcel);
-
-    document
-        .getElementById("closePopup")
-        .addEventListener("click", function () {
-
-            document.getElementById("popup").style.display = "none";
-
-        });
-
-};
+});
 
 
-
-//========================================
+//=============================
 // Loader
-//========================================
+//=============================
 
-function showLoader(show){
+function showLoader(){
 
-    document.getElementById("loader").style.display =
-        show ? "block" : "none";
+    document.getElementById("loader").style.display="block";
+
+}
+
+function hideLoader(){
+
+    document.getElementById("loader").style.display="none";
 
 }
 
 
 
-//========================================
-// Load Report
-//========================================
+//=============================
+// Main Function
+//=============================
 
-async function loadReport(){
+async function loadData(){
 
     let sheetUrl =
         document.getElementById("sheetUrl").value.trim();
@@ -84,108 +63,47 @@ async function loadReport(){
 
     }
 
-    let sheetId = extractSheetId(sheetUrl);
-
-    if(!sheetId){
-
-        alert("Invalid Google Sheet Link");
-
-        return;
-
-    }
-
-    let gid = extractGid(sheetUrl);
-
-    showLoader(true);
+    showLoader();
 
     try{
 
-        const api =
-
-            API_URL +
-
-            "?sheetId=" +
-
-            encodeURIComponent(sheetId) +
-
-            "&gid=" +
-
-            encodeURIComponent(gid);
-
         const response =
-            await fetch(api);
+            await fetch(API_URL,{
+                method:"POST",
+                body:JSON.stringify({
+                    sheetUrl:sheetUrl
+                })
+            });
 
-        const json =
+        const result =
             await response.json();
 
-        showLoader(false);
+        hideLoader();
 
-        if(!json.success){
+        if(!result.success){
 
-            alert(json.message);
+            alert(result.message);
 
             return;
 
         }
 
-        reportRows =
-            json.rows;
+        reportData =
+            result.data;
 
-        reportHeader =
-            reportRows[0];
+        header =
+            reportData[0];
 
-        buildDashboard();
+        processData();
 
     }
 
     catch(err){
 
-        showLoader(false);
+        hideLoader();
 
         alert(err);
 
     }
-
-}
-
-
-
-//========================================
-// Extract Sheet ID
-//========================================
-
-function extractSheetId(url){
-
-    let match =
-        url.match(/\/d\/([^\/]+)/);
-
-    if(match){
-
-        return match[1];
-
-    }
-
-    return null;
-
-}
-
-
-
-//========================================
-// Extract GID
-//========================================
-
-function extractGid(url){
-
-    let match =
-        url.match(/gid=(\d+)/);
-
-    if(match){
-
-        return match[1];
-
-    }
-
-    return "0";
 
 }
