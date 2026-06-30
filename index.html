@@ -4,10 +4,11 @@
 <head>
 
 <meta charset="UTF-8">
+
 <meta name="viewport"
 content="width=device-width, initial-scale=1.0">
 
-<title>CCC Dashboard</title>
+<title>CCC Recovery Dashboard</title>
 
 <link rel="stylesheet" href="style.css">
 
@@ -15,82 +16,76 @@ content="width=device-width, initial-scale=1.0">
 
 <body>
 
-<header>
-
-    <div class="container">
-
-        <h1 id="title">
-            CCC Wise Recovery Dashboard
-        </h1>
-
-        <p id="version"></p>
-
-    </div>
-
-</header>
-
-
-
 <div class="container">
 
-    <!-- Input Section -->
+    <div class="header">
 
-    <div class="top-panel">
+        <h1 id="reportHeading">
 
-        <input
-            type="text"
-            id="sheetUrl"
-            placeholder="Paste Google Sheet Link Here">
+            CCC Wise Recovery Dashboard
 
-        <button
-            id="generateBtn">
+        </h1>
 
-            Generate Report
+        <p>
 
-        </button>
+            WBSEDCL Recovery Monitoring System
 
-        <button
-            id="excelBtn">
-
-            Download Excel
-
-        </button>
-
-        <button
-            id="printBtn">
-
-            Print
-
-        </button>
+        </p>
 
     </div>
 
 
+    <div class="card">
 
-    <!-- Search -->
+        <div class="row">
 
-    <div class="search-box">
+            <div class="col-9">
 
-        <input
-            type="text"
-            id="search"
-            placeholder="Search CCC Name...">
+                <input
+                    id="sheetUrl"
+                    type="text"
+                    placeholder="Paste Google Sheet URL">
+
+            </div>
+
+            <div class="col-3">
+
+                <button
+                    class="primary"
+                    id="generateBtn">
+
+                    Generate Report
+
+                </button>
+
+            </div>
+
+        </div>
+
+        <div class="toolbar">
+
+            <button id="excelBtn">
+
+                📥 Download Excel
+
+            </button>
+
+            <button
+                onclick="window.print()">
+
+                🖨 Print
+
+            </button>
+
+            <input
+                type="text"
+                id="search"
+                placeholder="Search CCC...">
+
+        </div>
 
     </div>
 
-
-
-    <!-- Summary Cards -->
-
-    <div
-        id="summaryCards"
-        class="cards">
-
-    </div>
-
-
-
-    <!-- Loading -->
 
     <div
         id="loader"
@@ -101,42 +96,50 @@ content="width=device-width, initial-scale=1.0">
     </div>
 
 
+    <div id="summary"></div>
 
-    <!-- Report Table -->
 
-    <div
-        id="reportContainer">
+    <div class="table-wrapper">
+
+        <div id="report"></div>
 
     </div>
 
-</div>
 
 
-
-<!-- Popup -->
-
-<div
-id="popup"
-class="popup">
-
-    <div class="popup-content">
-
-        <span
-            id="closePopup">
-
-            &times;
-
-        </span>
+    <div
+        id="popup"
+        class="popup">
 
         <div
-            id="popupBody">
+            class="popup-content">
+
+            <span
+                class="close"
+                onclick="closePopup()">
+
+                ×
+
+            </span>
+
+            <div
+                id="popupBody">
+
+            </div>
 
         </div>
 
     </div>
 
-</div>
 
+
+    <div class="footer">
+
+        CCC Recovery Dashboard v3.0
+
+    </div>
+
+</div>
 
 
 <script src="config.js"></script>
